@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CourseApp</string>
+    <string name="hello_blank_fragment">Fragment</string>
+    <string name="duration">Duration</string>
+    <string name="radiant_win">Radiant win</string>
+    <string name="radiant_score">Radiant score</string>
+    <string name="dire_win">Dire win</string>
+    <string name="dire_score">Dire score</string>
+    <string name="radiant">Radiant</string>
+    <string name="dire">Dire</string>
+    <string name="win">win</string>
+    <string name="lose">lose</string>
+    <string name="patch_update">Patch updates</string>
+</resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "52974852451",
+    "project_id": "dota2db-896d4",
+    "storage_bucket": "dota2db-896d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52974852451:android:4042eb60175f9c1c0d9b56",
+        "android_client_info": {
+          "package_name": "com.example.courseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52974852451-922l903t8k1p7bvnhb6mugevjemmsglp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYbtNt_IK4tJ_WPLq7KgdFhhcPFzitjqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52974852451-922l903t8k1p7bvnhb6mugevjemmsglp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background"
+    android:orientation="vertical"
+    tools:context=".HomeFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Dota"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Guides"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-15dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/ring"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:elevation="120dp"
+                    android:layout_marginLeft="240dp">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:scaleX="3"
+                        android:scaleY="3"
+                        android:src="@drawable/marci" />
+                </androidx.cardview.widget.CardView><!--карточка с картинкой-->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view"
+                    android:layout_width="370dp"
+                    android:layout_height="620dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/white"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.487"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+
+                    <TextView
+                        android:id="@+id/info_text"
+                        android:layout_width="225dp"
+                        android:layout_height="105dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="left"
+                        android:text="@string/patch_update"
+                        android:textColor="@color/Blue"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <ScrollView
+                        android:layout_width="342dp"
+                        android:layout_height="505dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="105dp">
+                        <TextView
+                            android:layout_width="342dp"
+                            android:layout_height="510dp"
+                            android:fontFamily="sans-serif"
+                            android:gravity="left"
+                            android:text="
+- Дополнительное золото, дающееся всем союзникам в области, увеличено на 10\n
+- Исправлена ошибка, из-за которой лечение от Ink Swell у Grimstroke с Aghanim’s Shard не применялось от периодического урона\n
+- Исправлена ошибка, из-за которой талант 25 уровня у Gyrocopter на тройной удар Call Down уменьшал урон при увеличении числа жертв\n
+- Исправлена ошибка, из-за которой Illuminate у Keeper of the Light неверно взаимодействовала с уменьшением перезарядок во время действия Spirit Form\n
+- Исправлена ошибка, из-за которой талант 25 уровня у Legion Commander на вампиризм от Moment of Courage также увеличивал дальность применения Duel\n
+- Исправлена ошибка, из-за которой Ice Spire у Lich имела неограниченную дальность во время применения Sinister Gaze со скипетром\n
+- Исправлена ошибка, из-за которой крипы переставали двигаться после уничтожения Ice Spire у Lich\n
+- Исправлена ошибка, из-за которой Infest у Lifestealer со скипетром игнорировала Linken’s Sphere при применении на врага\n
+- Исправлена ошибка, из-за которой пятнадцатый толчок Epicenter у Sand King имел радиус 825 вместо 850\n
+- Исправлена ошибка, из-за которой Walrus Punch! у Tusk иногда не начинала перезаряжаться после применения\n
+- Исправлена ошибка, из-за которой портал от Fiend's Gate у Underlord могли убить призраки Death Prophet\n
+- Исправлена ошибка, из-за которой чумные тотемы у Venomancer имели неправильное значение урона и здоровья после получения таланта 25 уровня\n
+- Исправлена ошибка, из-за которой раскрытая невидимость позволяла уклониться от осколка Splinter Blast у Winter Wyvern, если тот летел от нейтрального существа\n
+- Исправлена ошибка, из-за которой призыв скелетов способностью Vampiric Spirit у Wraith King можно было прервать очищением\n
+- Fixed a number of abilities having incorrect or missing cast range indicators\n
+- Fixed and clarified a number of ability tooltips"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            />
+                    </ScrollView>
+                </androidx.cardview.widget.CardView><!--карточка с текстом-->
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

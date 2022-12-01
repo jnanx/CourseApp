@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CourseApp</string>
+    <string name="hello_blank_fragment">раврав</string>
+    <string name="duration">Продолжительность</string>
+    <string name="radiant_win">Победа сил света</string>
+    <string name="radiant_score">Счёт сил света</string>
+    <string name="dire_win">Победа сил тьмы</string>
+    <string name="dire_score">Счёт сил тьмы</string>
+    <string name="radiant">Силы света</string>
+    <string name="dire">Силы тьмы</string>
+    <string name="win">победа</string>
+    <string name="lose">поражение</string>
+    <string name="patch_update">Обновления патча</string>
+</resources>
