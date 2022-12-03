@@ -1,5 +1,6 @@
 package com.example.courseapp
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseapp.Adapter.PlayerAdapter
 import com.example.courseapp.Models.MatchData
+import com.example.courseapp.Retrofit.DotaBaseMatchDataRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -34,8 +36,6 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SearchFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-private  lateinit var playerRecyclerView: RecyclerView
-lateinit var adapter: PlayerAdapter
 
 class SearchFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -45,21 +45,11 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchFragmentViewModel by viewModels()
 
 
+    private  lateinit var playerRecyclerView: RecyclerView
+    private lateinit var adapter: PlayerAdapter
 
-//    private lateinit var binding: FragmentSearchBinding
 
-
-//    private val client = OkHttpClient.Builder()
-//        .addInterceptor {
-//            val request = it
-//                .request()
-//                .newBuilder()
-//                .addHeader("Authorization", "Bearer ")
-//                .build()
-//            return@addInterceptor it.proceed(request)
-//        }
-//        .build()
-
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,6 +82,13 @@ class SearchFragment : Fragment() {
             }
         }
 
+
+        playerRecyclerView = view.findViewById(R.id.radiantHeroList)
+        playerRecyclerView.layoutManager = LinearLayoutManager(context)
+        playerRecyclerView.setHasFixedSize(false)
+        adapter = PlayerAdapter(viewModel.playersStateFlow)
+        playerRecyclerView.adapter = adapter
+
         lifecycleScope.launch{
 
             viewModel.matchDataStateFlow.collect{
@@ -99,14 +96,12 @@ class SearchFragment : Fragment() {
                 launch(Dispatchers.Main){
                     if (it != null){
 
-                        if (it.duration != null) {
-                            durationText.text=
-                                "${resources.getString(R.string.duration)}: " +
-                                        if (it.duration / 60 < 10) "0${it.duration / 60}" else "${it.duration / 60}" + ":" + if (it.duration % 60 < 10) "0${it.duration % 60}" else "${it.duration / 60}"
-                            direScoreText.text="${it.dire_score}"
-                            radiantScoreText.text="${it.radiant_score}"
-                        }
-                        if(it.radiant_win==false){
+                        durationText.text=
+                            "${resources.getString(R.string.duration)}: " +
+                                    if (it.duration / 60 < 10) "0${it.duration / 60}" else "${it.duration / 60}" + ":" + if (it.duration % 60 < 10) "0${it.duration % 60}" else "${it.duration % 60}"
+                        direScoreText.text="${it.dire_score}"
+                        radiantScoreText.text="${it.radiant_score}"
+                        if(!it.radiant_win){
                             direText.setTextColor(Color.parseColor("#4D8B31"))
                             radiantText.setTextColor(Color.parseColor("#8C3131"))
                             radiantWLText.text = resources.getString(R.string.lose)
@@ -121,10 +116,6 @@ class SearchFragment : Fragment() {
                             direScoreText.setTextColor(Color.parseColor("#8C3131"))
                             radiantScoreText.setTextColor(Color.parseColor("#4D8B31"))
                         }
-
-                        if(it.duration != null && it.radiant_win != null){
-
-
                         txtUser.movementMethod = ScrollingMovementMethod()
                         txtUser.text =
                             "${resources.getString(R.string.duration)}: ${it.duration / 60}:${it.duration % 60}" +
@@ -138,20 +129,8 @@ class SearchFragment : Fragment() {
                                                 R.string.dire_score
                                             )
                                     }: ${it.dire_score}"
-                        }
-
-                        if(it.players != null) {
-                            playerRecyclerView = view.findViewById(R.id.radiantHeroList)
-                            playerRecyclerView.layoutManager = LinearLayoutManager(context)
-                            playerRecyclerView.setHasFixedSize(false)
-                            adapter = PlayerAdapter(it.players)
-                            playerRecyclerView.adapter = adapter
-
-                            lifecycleScope.launch{
-                                adapter.notifyDataSetChanged()
-                            }
-                        }
                     }
+                        adapter.notifyDataSetChanged()
                 }
             }
         }

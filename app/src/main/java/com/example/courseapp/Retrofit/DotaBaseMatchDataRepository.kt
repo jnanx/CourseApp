@@ -1,5 +1,6 @@
 package com.example.courseapp.Retrofit
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Hero
@@ -25,6 +26,7 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
     override suspend fun getMatchData(matchId: Long): MatchData {
         val heroes = MutableLiveData<List<Hero>>()
         HeroRepository().getInstance().loadHeroes(heroes)
+        Log.d("repository","getMatchData")
         return service.getMatch(matchId).run {
             MatchData(
                 match_id,
@@ -32,15 +34,13 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
                 radiant_win,
                 radiant_score,
                 dire_score,
-                if (players != null)
-                    MutableStateFlow(players.map
+                players.map
                     { dotaBasePlayerDTO ->
                         Player(
                             dotaBasePlayerDTO.name,
                             heroes.value?.firstOrNull() { it.id == dotaBasePlayerDTO.hero_id }
                         )
-                    }).asStateFlow()
-                else null
+                    }
             )
         }
     }

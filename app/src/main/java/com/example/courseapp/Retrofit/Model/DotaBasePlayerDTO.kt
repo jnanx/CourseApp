@@ -1,7 +1,7 @@
 package com.example.courseapp.Retrofit.Model
 
 data class DotaBasePlayerDTO(
-    var match_id: Int?,
+    var match_id: Long?,
     var player_slot: Int?,
     var ability_upgrades_arr: List<Int>?,
     var account_id: Int?,
@@ -43,7 +43,7 @@ data class DotaBasePlayerDTO(
     var lose: Int?,
     var total_gold: Int?,
     var total_xp: Int?,
-    var kills_per_min: Int?,
+    var kills_per_min: Float?,
     var kda: Int?,
     var hero_kills: Int?,
     var observer_kills: Int?,
