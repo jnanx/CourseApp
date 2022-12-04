@@ -45,7 +45,7 @@ data class DotaBasePlayerDTO(
     var total_xp: Int?,
     var kills_per_min: Float?,
     var kda: Int?,
-    var hero_kills: Int?,
+    var kills: Int?,
     var observer_kills: Int?,
     var sentry_kills: Int?,
     var buyback_count: Int?,

@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -45,8 +46,8 @@ class SearchFragment : Fragment() {
     private val viewModel: SearchFragmentViewModel by viewModels()
 
 
-    private  lateinit var playerRecyclerView: RecyclerView
-    private lateinit var adapter: PlayerAdapter
+    //private  lateinit var playerRecyclerView: RecyclerView
+    //private lateinit var adapter: PlayerAdapter
 
 
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
@@ -54,6 +55,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_search, container, false)
 
         val txtUser = view.findViewById<TextView>(R.id.txtUser)
@@ -66,6 +68,8 @@ class SearchFragment : Fragment() {
         val durationText = view.findViewById<TextView>(R.id.durationText)
         val direScoreText = view.findViewById<TextView>(R.id.direScore)
         val radiantScoreText = view.findViewById<TextView>(R.id.radiantScore)
+
+        val playerRecyclerView = view.findViewById<RecyclerView>(R.id.radiantHeroList)
 
         view.findViewById<Button>(R.id.findByIdButton).setOnClickListener {
 
@@ -82,16 +86,14 @@ class SearchFragment : Fragment() {
             }
         }
 
-
-        playerRecyclerView = view.findViewById(R.id.radiantHeroList)
         playerRecyclerView.layoutManager = LinearLayoutManager(context)
         playerRecyclerView.setHasFixedSize(false)
-        adapter = PlayerAdapter(viewModel.playersStateFlow)
+        val adapter = PlayerAdapter(viewModel.playersStateFlow)
         playerRecyclerView.adapter = adapter
 
         lifecycleScope.launch{
-
             viewModel.matchDataStateFlow.collect{
+
                 Log.d("COLLECT", "$it")
                 launch(Dispatchers.Main){
                     if (it != null){
@@ -116,7 +118,7 @@ class SearchFragment : Fragment() {
                             direScoreText.setTextColor(Color.parseColor("#8C3131"))
                             radiantScoreText.setTextColor(Color.parseColor("#4D8B31"))
                         }
-                        txtUser.movementMethod = ScrollingMovementMethod()
+                        //txtUser.movementMethod = ScrollingMovementMethod()
                         txtUser.text =
                             "${resources.getString(R.string.duration)}: ${it.duration / 60}:${it.duration % 60}" +
                                     "\n${resources.getString(R.string.radiant_win)}: ${it.radiant_win}\n${
@@ -130,15 +132,30 @@ class SearchFragment : Fragment() {
                                             )
                                     }: ${it.dire_score}"
                     }
-                        adapter.notifyDataSetChanged()
                 }
             }
         }
-        return view
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+        lifecycleScope.launch {
+
+            viewModel.playersStateFlow.collect {
+                adapter.notifyDataSetChanged()
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.searchModeStateFlow.collect{
+                val str: String = when(it){
+                    SearchMode.NONE -> "NONE"
+                    SearchMode.ERROR -> "ERROR"
+                    SearchMode.LOADING -> "LOADING"
+                    SearchMode.LOADED -> "LOADED"
+                }
+                Toast.makeText(context,str,Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return view
     }
 }
 

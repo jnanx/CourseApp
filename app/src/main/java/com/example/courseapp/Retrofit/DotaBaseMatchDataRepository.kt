@@ -24,9 +24,9 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
 
 
     override suspend fun getMatchData(matchId: Long): MatchData {
-        val heroes = MutableLiveData<List<Hero>>()
-        HeroRepository().getInstance().loadHeroes(heroes)
-        Log.d("repository","getMatchData")
+        val heroes =
+        HeroRepository().getInstance().getHeroes()
+        Log.d("repository",heroes.toString())
         return service.getMatch(matchId).run {
             MatchData(
                 match_id,
@@ -37,8 +37,9 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
                 players.map
                     { dotaBasePlayerDTO ->
                         Player(
-                            dotaBasePlayerDTO.name,
-                            heroes.value?.firstOrNull() { it.id == dotaBasePlayerDTO.hero_id }
+                            dotaBasePlayerDTO.personaname?: "Anonymous",
+                            heroes?.firstOrNull { it.id == dotaBasePlayerDTO.hero_id },
+                            dotaBasePlayerDTO.kills, dotaBasePlayerDTO.deaths, dotaBasePlayerDTO.assists
                         )
                     }
             )

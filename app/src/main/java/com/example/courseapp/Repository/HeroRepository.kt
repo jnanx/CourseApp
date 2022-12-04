@@ -1,5 +1,6 @@
 package com.example.courseapp.Repository
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.courseapp.Models.Hero
 import com.google.firebase.database.*
@@ -39,6 +40,22 @@ class HeroRepository {
             }
 
         })
+    }
+
+    fun getHeroes(): List<Hero>{
+        val heroesList: MutableList<Hero> = mutableListOf()
+        val reference : DatabaseReference = FirebaseDatabase.getInstance().getReference("heroes")
+        reference.get().addOnSuccessListener {
+            if (it.exists()){
+                for(hero in it.children){
+                    heroesList.add(hero?.getValue(Hero::class.java)!!)
+                }
+            }
+        }.addOnFailureListener{
+
+        }
+
+        return  heroesList
     }
 
 
