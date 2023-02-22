@@ -11,5 +11,9 @@
     <string name="dire">Dire</string>
     <string name="win">win</string>
     <string name="lose">lose</string>
-    <string name="patch_update">Patch updates</string>
+    <string name="news">News</string>
+    <string name="search">Search</string>
+    <string name="enterID">Enter game ID</string>
+    <string name="heroes">Heroes</string>
+    <string name="items">Items</string>
 </resources>

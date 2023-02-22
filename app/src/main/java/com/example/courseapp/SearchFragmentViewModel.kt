@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
 import com.example.courseapp.Retrofit.DotaBaseMatchDataRepository
+import com.example.courseapp.Retrofit.MatchDataDatabase
 import com.example.courseapp.Retrofit.MatchDataRepository
+import com.example.courseapp.Retrofit.RoomDecoratorMatchDataRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,16 +18,21 @@ import kotlinx.coroutines.launch
 
 class SearchFragmentViewModel: ViewModel() {
 
-    //TODO: DI
-    private val repository: MatchDataRepository = DotaBaseMatchDataRepository()
+    private lateinit var db : MatchDataDatabase
+
+    private lateinit var repository: MatchDataRepository
 
     private var _matchDataStateFlow = MutableStateFlow<MatchData?>(null)
 
     var matchDataStateFlow = _matchDataStateFlow.asStateFlow()
 
-    private var _playersStateFlow = MutableStateFlow(listOf<Player>())
+    private var _radiantPlayersStateFlow = MutableStateFlow<List<Player>>(emptyList())
 
-    var playersStateFlow = _playersStateFlow.asStateFlow()
+    var radiantPlayersStateFlow = _radiantPlayersStateFlow.asStateFlow()
+
+    private var _direPlayersStateFlow = MutableStateFlow<List<Player>>(emptyList())
+
+    var direPlayersStateFlow = _direPlayersStateFlow.asStateFlow()
 
     private val _searchModeStateFlow = MutableStateFlow(SearchMode.NONE)
 
@@ -38,12 +45,19 @@ class SearchFragmentViewModel: ViewModel() {
             try {
                 val matchData = repository.getMatchData(matchId)
                 _matchDataStateFlow.emit(matchData)
-                _playersStateFlow.emit(matchData.players)
+                val (radiant, dire) = matchData.players.partition { it.isRadiant == true }
+                _direPlayersStateFlow.emit(dire)
+                _radiantPlayersStateFlow.emit(radiant)
                 _searchModeStateFlow.emit(SearchMode.LOADED)
             } catch (e: Exception) {
                 Log.d("ViewModelGetMatchDataError", e.toString())
                 _searchModeStateFlow.emit(SearchMode.ERROR)
             }
         }
+    }
+
+    fun setDb(db: MatchDataDatabase) {
+        this.db = db
+        repository = RoomDecoratorMatchDataRepository(DotaBaseMatchDataRepository(), db)
     }
 }

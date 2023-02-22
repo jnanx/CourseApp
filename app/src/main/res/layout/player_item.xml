@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -32,20 +28,47 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/heroName"
-                    android:layout_width="150dp"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="1dp"
-                    android:text="name"
-                    android:textSize="23dp" />
+                    android:orientation="horizontal">
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="27dp"
+                        android:layout_height="27dp"
+                        app:cardCornerRadius="100dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="@color/GoldYellow"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="2dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/levelText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/GoldYellow"
+                            android:text="23"
+                            android:layout_gravity="center"
+                            android:textSize="17dp"/>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/heroName"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="1dp"
+                        android:text="name"
+                        android:textSize="23dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                 <TextView
                     android:id="@+id/personName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
+                    android:layout_marginLeft="36dp"
                     android:layout_marginTop="1dp"
                     android:text="personname"
                     android:textSize="15dp" />
@@ -53,44 +76,155 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
-                android:id="@+id/personKills"
+
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_gravity="center">
 
-                android:text="K"
-                android:textSize="21dp" />
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
+                    <TextView
+                        android:id="@+id/personKills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:text="K"
+                        android:textSize="21dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="/"
+                        android:textSize="23dp" />
+
+                    <TextView
+                        android:id="@+id/personDeaths"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="D"
+                        android:textSize="21dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="/"
+                        android:textSize="23dp" />
+
+                    <TextView
+                        android:id="@+id/personAssists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="A"
+                        android:textSize="21dp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/coin"
+                        />
+                    <TextView
+                        android:id="@+id/personNetWorth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12344"
+                        android:textColor="@color/GoldYellow"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/ListOfItems">
+            <ImageView
+                android:id="@+id/item1Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="2dp"/>
+            <ImageView
+                android:id="@+id/item2Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="2dp" />
+            <ImageView
+                android:id="@+id/item3Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="2dp" />
+            <ImageView
+                android:id="@+id/item4Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="2dp" />
+            <ImageView
+                android:id="@+id/item5Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="2dp" />
+            <ImageView
+                android:id="@+id/item6Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+
+                android:layout_marginRight="2dp" />
+
+            <ImageView
+                android:id="@+id/backpack1Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="2dp"/>
+
+            <ImageView
+                android:id="@+id/backpack2Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="2dp"/>
+
+
+            <ImageView
+                android:id="@+id/backpack3Icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/no_item"
+                android:layout_marginRight="10dp"
+                />
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="/"
-                android:textSize="23dp" />
+                android:orientation="horizontal"
+                android:id="@+id/ability_upgrades">
 
-            <TextView
-                android:id="@+id/personDeaths"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="D"
-                android:textSize="21dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="/"
-                android:textSize="23dp" />
-
-            <TextView
-                android:id="@+id/personAssists"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="A"
-                android:textSize="21dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -98,4 +232,4 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

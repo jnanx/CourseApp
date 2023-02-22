@@ -41,6 +41,7 @@ data class DotaBasePlayerDTO(
     var isRadiant: Boolean,
     var win: Int?,
     var lose: Int?,
+    var net_worth: Int? = null,
     var total_gold: Int?,
     var total_xp: Int?,
     var kills_per_min: Float?,

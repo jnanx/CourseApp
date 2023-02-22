@@ -11,5 +11,9 @@
     <string name="dire">Силы тьмы</string>
     <string name="win">победа</string>
     <string name="lose">поражение</string>
-    <string name="patch_update">Обновления патча</string>
+    <string name="news">Новости</string>
+    <string name="search">Поиск</string>
+    <string name="enterID">Введите ID игры</string>
+    <string name="heroes">Герои</string>
+    <string name="items">Предметы</string>
 </resources>

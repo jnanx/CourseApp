@@ -42,6 +42,5 @@ data class Hero(
     var vision_day: Int? = null,
     var vision_night: Int? = null,
     var magic_resistance: Int? = null,
-    var is_melee: String? = null,
-    var material: String? = null,
+    var is_melee: Boolean? = null,
 )
