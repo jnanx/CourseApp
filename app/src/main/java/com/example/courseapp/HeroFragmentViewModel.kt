@@ -25,4 +25,7 @@ class HeroFragmentViewModel: ViewModel() {
 
 
 
+    fun getHeroById(id: Int): Hero?{
+        return _heroesStateFlow.value.find { h-> h.id == id }
+    }
 }

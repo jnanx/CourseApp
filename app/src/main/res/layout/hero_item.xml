@@ -22,9 +22,9 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleX="3"
-            android:scaleY="3"
-            android:src="@drawable/marci"
+            android:scaleX="1"
+            android:scaleY="1.77"
+            android:src="@drawable/hero_icon_jakiro"
             android:id="@+id/heroIconBox"/>
 
 

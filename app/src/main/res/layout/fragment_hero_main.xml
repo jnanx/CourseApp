@@ -78,7 +78,7 @@
             <EditText
                 android:id="@+id/heroSearchText"
                 android:layout_width="300dp"
-                android:layout_height="35dp"
+                android:layout_height="39dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
@@ -112,7 +112,8 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="4dp">
+                    app:cardCornerRadius="4dp"
+                    android:id="@+id/heroIsStrength">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -138,7 +139,7 @@
                             android:foregroundGravity="center"
                             android:gravity="center"
                             android:text="Сила"
-                            android:textColor="@color/Blue"
+                            android:textColor="@color/DarkBlue"
                             android:textSize="16dp"
                             android:textStyle="bold" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -149,7 +150,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    app:cardCornerRadius="4dp">
+                    app:cardCornerRadius="4dp"
+                    android:id="@+id/heroIsAgility">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -173,7 +175,7 @@
                             android:fontFamily="sans-serif"
                             android:gravity="center"
                             android:text="Ловкость"
-                            android:textColor="@color/Blue"
+                            android:textColor="@color/DarkBlue"
                             android:textSize="16dp"
                             android:textStyle="bold" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -184,7 +186,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    app:cardCornerRadius="4dp">
+                    app:cardCornerRadius="4dp"
+                    android:id="@+id/heroIsIntelligence">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -208,7 +211,7 @@
                             android:fontFamily="sans-serif"
                             android:gravity="center"
                             android:text="Интеллект"
-                            android:textColor="@color/Blue"
+                            android:textColor="@color/DarkBlue"
                             android:textSize="16dp"
                             android:textStyle="bold" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -217,7 +220,31 @@
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hero_list"
+            android:id="@+id/hero_list_strenght"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:paddingBottom="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
+            tools:listitem="@layout/hero_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hero_list_agility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:paddingBottom="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
+            tools:listitem="@layout/hero_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hero_list_intelligence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"

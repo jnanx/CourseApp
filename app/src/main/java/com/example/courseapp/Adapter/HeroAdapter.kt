@@ -13,11 +13,28 @@ import kotlinx.coroutines.flow.StateFlow
 
 class HeroAdapter(private val listStateFlow: StateFlow<List<Hero>>) : RecyclerView.Adapter<HeroAdapter.MyViewHolder>() {
 
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener{
+
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
+
     private var heroList: List<Hero> = emptyList()
 
-    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView : View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView){
         val heroIcon: ImageView = itemView.findViewById(R.id.heroIconBox)
         val heroName: TextView = itemView.findViewById(R.id.heroNameBox)
+
+        init {
+           itemView.setOnClickListener {
+               listener.onItemClick(adapterPosition)
+           }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,7 +43,7 @@ class HeroAdapter(private val listStateFlow: StateFlow<List<Hero>>) : RecyclerVi
             parent, false
         )
 
-        return MyViewHolder(itemView)
+        return MyViewHolder(itemView, mListener)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

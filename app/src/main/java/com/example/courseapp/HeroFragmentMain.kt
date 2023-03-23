@@ -1,13 +1,17 @@
 package com.example.courseapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.core.view.children
+import androidx.core.view.get
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HeroFragmentMain : Fragment() {
-    private val viewModel: HeroFragmentViewModel by viewModels()
+    private val viewModel: HeroFragmentViewModel by activityViewModels()
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -64,9 +68,33 @@ class HeroFragmentMain : Fragment() {
         heroList= view.findViewById(R.id.hero_list)
         heroList.layoutManager = GridLayoutManager(context, 3)
 
+
+
         heroList.setHasFixedSize(false)
         val heroAdapter = HeroAdapter(viewModel.heroesStateFlow)
-        heroList.adapter = heroAdapter
+
+        var adapter = heroAdapter
+        heroList.adapter = adapter
+        adapter.setOnItemClickListener(object : HeroAdapter.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                val heroId = viewModel.heroesStateFlow.value[position].id
+                val newFragment = heroId?.let { HeroPageFragment.newInstance(it) }
+                if (newFragment != null)
+                    activity?.supportFragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.mainContainer, newFragment)
+                        addToBackStack(null)
+                        commit()
+                    }
+
+            }
+
+
+        })
+
+
+
+
+
 
         lifecycleScope.launch{
             viewModel.heroesStateFlow.collect{
