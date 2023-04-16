@@ -28,4 +28,14 @@
             android:id="@+id/action_heroFragmentMain_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/proTrackerMain"
+        android:name="com.example.courseapp.ProTrackerMain"
+        android:label="fragment_pro_tracker_main"
+        tools:layout="@layout/fragment_pro_tracker_main" />
+    <fragment
+        android:id="@+id/timerFragmentMain"
+        android:name="com.example.courseapp.TimerFragmentMain"
+        android:label="fragment_timer_main"
+        tools:layout="@layout/fragment_timer_main" />
 </navigation>

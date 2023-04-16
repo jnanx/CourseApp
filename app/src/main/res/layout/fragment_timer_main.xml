@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TimerFragmentMain"
+    android:background="@drawable/main_background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Dota"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Guides"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
+
+
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="12dp">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/roshan_icon"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Roshan"
+                            android:textSize="30dp"
+                            android:textColor="@color/DarkBlue"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="-4dp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:visibility="invisible"
+                            android:id="@+id/restartRoshan"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="Мяу"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="60dp"
+                            android:background="@drawable/button_background"/>
+
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/pauseRoshan"
+                                android:layout_width="80dp"
+                                android:layout_height="35dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:text="Пуск"
+                                android:background="@drawable/button_background"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="12dp">
+                        <Chronometer
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:id="@+id/roshanMinTime"
+                            android:countDown="true"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" — "
+                            android:textSize="25dp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:textColor="@color/DarkBlue"/>
+                        <Chronometer
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:id="@+id/roshanMaxTime"
+                            android:countDown="true"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="20dp"
+                android:layout_width="370dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="12dp">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/roshan_icon"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Aegis"
+                            android:textSize="30dp"
+                            android:textColor="@color/DarkBlue"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="-4dp"
+                            />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:visibility="invisible"
+                            android:id="@+id/restartAegis"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="Мяу"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="85dp"
+                            android:background="@drawable/button_background"/>
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/startAegis"
+                            android:layout_width="80dp"
+                            android:layout_height="35dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:text="Пуск"
+                            android:background="@drawable/button_background"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="12dp">
+                        <Chronometer
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:id="@+id/aegisTime"
+                            android:countDown="true"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

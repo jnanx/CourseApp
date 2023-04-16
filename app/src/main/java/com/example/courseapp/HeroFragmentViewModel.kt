@@ -12,20 +12,28 @@ import kotlinx.coroutines.launch
 class HeroFragmentViewModel: ViewModel() {
     private var db :  FireBaseRepository = FireBaseRepository().getInstance()
 
-    private var _heroesStateFlow = MutableStateFlow<List<Hero>>(emptyList())
-    var heroesStateFlow = _heroesStateFlow.asStateFlow()
+    private var heroes: List<Hero> = emptyList()
 
+    private val _heroesStrength = MutableStateFlow<List<Hero>>(emptyList())
+    val heroesStrength = _heroesStrength.asStateFlow()
 
-    fun loadHeroes(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val heroList = db.getHeroes()
-            _heroesStateFlow.emit(heroList)
+    private val _heroesAgility = MutableStateFlow<List<Hero>>(emptyList())
+    val heroesAgility = _heroesAgility
+
+    private val _heroIntelligence = MutableStateFlow<List<Hero>>(emptyList())
+    val heroesIntelligence = _heroIntelligence.asStateFlow()
+
+    fun loadHeroes() {
+        viewModelScope.launch {
+            heroes = db.getHeroes().sortedBy { it.localized_name }
+            _heroesStrength.emit(heroes.filter { it.attr_primary == "strength" })
+            _heroesAgility.emit(heroes.filter { it.attr_primary == "agility" })
+            _heroIntelligence.emit(heroes.filter { it.attr_primary == "intelligence" })
         }
     }
 
-
-
     fun getHeroById(id: Int): Hero?{
-        return _heroesStateFlow.value.find { h-> h.id == id }
+        return heroes
+            .find { h-> h.id == id }
     }
 }

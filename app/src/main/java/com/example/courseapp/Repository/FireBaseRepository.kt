@@ -37,18 +37,30 @@ class FireBaseRepository {
         return  heroesList
     }
 
-    fun getItems(): List<Item>{
+    suspend fun getItems(): List<Item>{
         val itemsList: MutableList<Item> = mutableListOf()
-        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("items")
-        reference.get().addOnSuccessListener {
-            if (it.exists()){
-                for( item in it.children){
+        val task = FirebaseDatabase.getInstance().getReference("items").get()
+        task.await()
+
+        if(task.isSuccessful){
+            if(task.result.exists()){
+                for(item in task.result.children){
                     itemsList.add(item?.getValue(Item::class.java)!!)
                 }
             }
-        }.addOnFailureListener {
-
         }
+
+
+//        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("items")
+//        reference.get().addOnSuccessListener {
+//            if (it.exists()){
+//                for( item in it.children){
+//                    itemsList.add(item?.getValue(Item::class.java)!!)
+//                }
+//            }
+//        }.addOnFailureListener {
+//
+//        }
 
        return itemsList
     }

@@ -31,7 +31,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HeroFragmentMain.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HeroFragmentMain : Fragment() {
+class HeroFragmentMain : Fragment(){
     private val viewModel: HeroFragmentViewModel by activityViewModels()
 
     // TODO: Rename and change types of parameters
@@ -46,10 +46,15 @@ class HeroFragmentMain : Fragment() {
         }
     }
 
-
     private lateinit var backToHome : CardView
 
-    private lateinit var heroList : RecyclerView
+    private lateinit var heroListStrength : RecyclerView
+
+    private lateinit var heroListAgility : RecyclerView
+
+    private lateinit var heroListIntelligence : RecyclerView
+
+
     @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,54 +64,59 @@ class HeroFragmentMain : Fragment() {
         backToHome = view.findViewById(R.id.backToHome)
 
         backToHome.setOnClickListener(){
-            //findNavController().navigate(R.id.heroFragmentMain)
-
             activity?.supportFragmentManager?.popBackStackImmediate()
-
         }
 
-        heroList= view.findViewById(R.id.hero_list)
-        heroList.layoutManager = GridLayoutManager(context, 3)
+        heroListStrength = view.findViewById(R.id.hero_list_strength)
+        heroListStrength.layoutManager = GridLayoutManager(context, 3)
+
+        heroListAgility = view.findViewById(R.id.hero_list_agility)
+        heroListAgility.layoutManager = GridLayoutManager(context, 3)
+
+        heroListIntelligence = view.findViewById(R.id.hero_list_intelligence)
+        heroListIntelligence.layoutManager = GridLayoutManager(context, 3)
+
+        heroListStrength.setHasFixedSize(false)
+        heroListAgility.setHasFixedSize(false)
+        heroListIntelligence.setHasFixedSize(false)
 
 
-
-        heroList.setHasFixedSize(false)
-        val heroAdapter = HeroAdapter(viewModel.heroesStateFlow)
-
-        var adapter = heroAdapter
-        heroList.adapter = adapter
-        adapter.setOnItemClickListener(object : HeroAdapter.onItemClickListener {
-            override fun onItemClick(position: Int) {
-                val heroId = viewModel.heroesStateFlow.value[position].id
-                val newFragment = heroId?.let { HeroPageFragment.newInstance(it) }
-                if (newFragment != null)
-                    activity?.supportFragmentManager?.beginTransaction()?.apply {
-                        replace(R.id.mainContainer, newFragment)
-                        addToBackStack(null)
-                        commit()
-                    }
-
+        val strengthHeroesAdapter = HeroAdapter(viewModel.heroesStrength)
+            .setOnItemClickListener{
+                    position -> openHeroInfoFragment(viewModel.heroesStrength.value[position].id)
+            }
+        val agilityHeroesAdapter = HeroAdapter(viewModel.heroesAgility)
+            .setOnItemClickListener{
+                    position -> openHeroInfoFragment(viewModel.heroesAgility.value[position].id)
+            }
+        val intelligenceHeroesAdapter = HeroAdapter(viewModel.heroesIntelligence)
+            .setOnItemClickListener{
+                position -> openHeroInfoFragment(viewModel.heroesIntelligence.value[position].id)
             }
 
-
-        })
-
-
-
-
-
-
+        heroListStrength.adapter = strengthHeroesAdapter
+        heroListAgility.adapter = agilityHeroesAdapter
+        heroListIntelligence.adapter = intelligenceHeroesAdapter
         lifecycleScope.launch{
-            viewModel.heroesStateFlow.collect{
-                heroAdapter.notifyDataSetChanged()
+            viewModel.heroesStrength.collect{
+                strengthHeroesAdapter.notifyDataSetChanged()
+                agilityHeroesAdapter.notifyDataSetChanged()
+                intelligenceHeroesAdapter.notifyDataSetChanged()
             }
         }
 
         viewModel.loadHeroes()
-
         return view
+    }
 
-
+    private fun openHeroInfoFragment(heroId: Int?){
+        val newFragment = heroId?.let { HeroPageFragment.newInstance(it) }
+        if (newFragment != null)
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.mainContainer, newFragment)
+                addToBackStack(null)
+                commit()
+            }
     }
 
     companion object {
@@ -128,4 +138,5 @@ class HeroFragmentMain : Fragment() {
                 }
             }
     }
+
 }

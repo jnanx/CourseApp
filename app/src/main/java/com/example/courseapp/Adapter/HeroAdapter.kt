@@ -11,22 +11,23 @@ import com.example.courseapp.Models.Hero
 import com.example.courseapp.R
 import kotlinx.coroutines.flow.StateFlow
 
-class HeroAdapter(private val listStateFlow: StateFlow<List<Hero>>) : RecyclerView.Adapter<HeroAdapter.MyViewHolder>() {
+class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapter<HeroAdapter.MyViewHolder>() {
 
-    private lateinit var mListener: onItemClickListener
+    private lateinit var mListener: OnItemClickListener
 
-    interface onItemClickListener{
+    fun interface OnItemClickListener{
 
         fun onItemClick(position: Int)
     }
 
-    fun setOnItemClickListener(listener: onItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener): HeroAdapter{
         mListener = listener
+        return this
     }
 
     private var heroList: List<Hero> = emptyList()
 
-    class MyViewHolder(itemView : View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView : View, listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView){
         val heroIcon: ImageView = itemView.findViewById(R.id.heroIconBox)
         val heroName: TextView = itemView.findViewById(R.id.heroNameBox)
 
@@ -55,7 +56,7 @@ class HeroAdapter(private val listStateFlow: StateFlow<List<Hero>>) : RecyclerVi
     }
 
     override fun getItemCount(): Int {
-        heroList = listStateFlow.value.map { it }
+        heroList = list.value
         return heroList.size
     }
 

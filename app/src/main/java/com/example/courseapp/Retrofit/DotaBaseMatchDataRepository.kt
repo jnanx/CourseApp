@@ -2,6 +2,7 @@ package com.example.courseapp.Retrofit
 
 import android.util.Log
 import com.example.courseapp.Models.Hero
+import com.example.courseapp.Models.Item
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
 import com.example.courseapp.Repository.FireBaseRepository
@@ -22,7 +23,9 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
 
     private lateinit var heroes: List<Hero>
 
-    private val items = repository.getItems()
+    private lateinit var items: List<Item>
+//
+//    private val items = repository.getItems()
 
     private val abilities = repository.getAbilities()
 

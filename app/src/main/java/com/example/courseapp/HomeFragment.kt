@@ -34,6 +34,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var toHeroCardView: CardView
 
+    private lateinit var toItemCardView: CardView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,6 +43,7 @@ class HomeFragment : Fragment() {
 
         val i = inflater.inflate(R.layout.fragment_home, container, false)
         toHeroCardView = i.findViewById(R.id.heroCard)
+        toItemCardView = i.findViewById(R.id.itemCard)
 
         toHeroCardView.setOnClickListener(){
             //findNavController().navigate(R.id.heroFragmentMain)
@@ -50,6 +53,16 @@ class HomeFragment : Fragment() {
                 addToBackStack(null)
                 commit()
             }
+        }
+
+        toItemCardView.setOnClickListener(){
+            val newFragment = ItemFragmentMain()
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.mainContainer, newFragment)
+                addToBackStack(null)
+                commit()
+            }
+
         }
 
         return i

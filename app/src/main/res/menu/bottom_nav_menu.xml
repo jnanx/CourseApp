@@ -5,6 +5,20 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="home" />
+
+
+
+    <item
+        android:id="@+id/timerFragmentMain"
+        android:icon="@drawable/ic_baseline_timelapse_24"
+        android:title="timer" />
+
+
+    <item
+        android:id="@+id/proTrackerMain"
+        android:icon="@drawable/ic_baseline_6k_plus_24"
+        android:title="protracker" />
+
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_baseline_search_24"
