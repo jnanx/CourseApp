@@ -90,7 +90,7 @@
             app:layout_constraintTop_toBottomOf="@+id/findByIdButton"
             >
 
-            <ScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -231,7 +231,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            </ScrollView>
+            </androidx.core.widget.NestedScrollView>
 
         </androidx.cardview.widget.CardView><!--карточка с текстом-->
 

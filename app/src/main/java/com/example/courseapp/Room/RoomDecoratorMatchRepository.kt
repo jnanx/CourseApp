@@ -1,8 +1,10 @@
-package com.example.courseapp.Retrofit
+package com.example.courseapp.Room
+
 
 import androidx.room.*
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
+import com.example.courseapp.Retrofit.MatchDataRepository
 import com.example.courseapp.Room.PlayerListConverter
 
 @Entity(tableName = "query_matches")
@@ -50,7 +52,11 @@ abstract class MatchDataDatabase: RoomDatabase(){
     abstract fun matchDao(): MatchDataDao
 }
 
-class RoomDecoratorMatchDataRepository(val decoratedRepository: MatchDataRepository, private val matchesDatabase: MatchDataDatabase): MatchDataRepository {
+class RoomDecoratorMatchDataRepository(
+    private val decoratedRepository: MatchDataRepository,
+    matchesDatabase: MatchDataDatabase
+): MatchDataRepository {
+
     private val matchDao = matchesDatabase.matchDao()
     override suspend fun getMatchData(matchId: Long): MatchData {
         val matchData = matchDao.getMatchData(matchId)

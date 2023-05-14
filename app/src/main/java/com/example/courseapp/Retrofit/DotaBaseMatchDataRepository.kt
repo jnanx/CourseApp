@@ -6,15 +6,25 @@ import com.example.courseapp.Models.Item
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
 import com.example.courseapp.Repository.FireBaseRepository
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
 class DotaBaseMatchDataRepository: MatchDataRepository {
 
+    private val client = OkHttpClient.Builder().addInterceptor(run {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.apply {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        }
+    }).build()
+
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
+        .client(client)
         .build()
 
     private val repository = FireBaseRepository().getInstance()
@@ -69,8 +79,6 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
                             dotaBasePlayerDTO.ability_upgrades_arr?.mapNotNull { ability ->
                                 talents.firstOrNull{ it.ability_id == ability }
                             }
-
-
                         )
                     }
             )

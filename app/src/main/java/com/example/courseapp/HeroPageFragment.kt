@@ -6,14 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.courseapp.Adapter.AbilityAdapter
 import com.example.courseapp.Adapter.HeroAdapter
 import com.example.courseapp.Adapter.PlayerAdapter
+import com.example.courseapp.Models.Ability
 import com.example.courseapp.Models.Hero
 
 // TODO: Rename parameter arguments, choose names that match
@@ -47,6 +53,21 @@ class HeroPageFragment private constructor(): Fragment() {
     private lateinit var heroIcon: ImageView
     private lateinit var heroPortrait: ImageView
 
+    private lateinit var heroBaseStr: TextView
+    private lateinit var heroBaseStrReg: TextView
+
+    private lateinit var heroBaseAgl: TextView
+    private lateinit var heroBaseAglReg: TextView
+
+    private lateinit var heroBaseInt: TextView
+    private lateinit var heroBaseIntReg: TextView
+
+    private lateinit var abilityRecyclerView: RecyclerView
+
+    private lateinit var heroHype: TextView
+
+    private lateinit var heroBio: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +81,21 @@ class HeroPageFragment private constructor(): Fragment() {
         heroIcon = view.findViewById(R.id.heroIconFragment)
         heroPortrait = view.findViewById(R.id.heroPortraitFragment)
 
+
+        heroBaseStr = view.findViewById(R.id.baseStrength)
+        heroBaseStrReg = view.findViewById(R.id.baseStrengthRegen)
+
+        heroBaseAgl = view.findViewById(R.id.baseAgility)
+        heroBaseAglReg = view.findViewById(R.id.baseAgilityRegen)
+
+        heroBaseInt = view.findViewById(R.id.baseIntelligence)
+        heroBaseIntReg = view.findViewById(R.id.baseIntelligenceRegen)
+
+        abilityRecyclerView = view.findViewById(R.id.abilityRecyclerView)
+
+        heroHype = view.findViewById(R.id.hypeTextBox)
+        heroBio = view.findViewById(R.id.bioTextBox)
+
         backToHome.setOnClickListener{
             activity?.supportFragmentManager?.popBackStackImmediate()
         }
@@ -68,12 +104,26 @@ class HeroPageFragment private constructor(): Fragment() {
         hero?.icon?.let {Glide.with(heroIcon).load(BASE_URL+it).into(heroIcon)  }
         hero?.image.let { Glide.with(heroPortrait).load(BASE_URL+it).into(heroPortrait) }
 
+        heroBaseStr.text = hero?.attr_strength_base.toString()
+        heroBaseStrReg.text = hero?.attr_strength_gain.toString()
+
+        heroBaseAgl.text = hero?.attr_agility_base.toString()
+        heroBaseAglReg.text = hero?.attr_agility_gain.toString()
+
+        heroBaseInt.text = hero?.attr_intelligence_base.toString()
+        heroBaseIntReg.text = hero?.attr_intelligence_gain.toString()
+
+        heroHype.text = hero?.hype?.replace("**", "")
+        heroBio.text = hero?.bio?.replace("**", "")
+
         when(hero?.attr_primary){
             "strength"->view.findViewById<ImageView>(R.id.isStrenght).visibility=View.VISIBLE
             "agility"->view.findViewById<ImageView>(R.id.isAgility).visibility=View.VISIBLE
             "intelligence"->view.findViewById<ImageView>(R.id.isIntelligence).visibility=View.VISIBLE
         }
 
+        abilityRecyclerView.adapter = AbilityAdapter(viewModelHeroPage.getHeroAbilities(heroId!!))
+        abilityRecyclerView.layoutManager = LinearLayoutManager(view.context)
         return view
     }
 //приложение вылетает когда захожу сюда в этот фрагмент с героем

@@ -74,4 +74,9 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.4.3'
     ksp "androidx.room:room-compiler:2.4.3"
     //kapt 'androidx.room:room-compiler:2.4.3'
+
+
+//OkHTTP
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 }

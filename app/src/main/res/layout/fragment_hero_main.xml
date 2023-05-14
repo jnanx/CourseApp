@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,19 +64,29 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="360dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:elevation="20dp"
-            app:cardCornerRadius="8dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/layoutHeroes"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="360dp"
+            android:layout_height="40dp"
+            android:elevation="20dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <EditText
-                android:id="@+id/heroSearchText"
+                android:id="@+id/heroSearchEditText"
                 android:layout_width="300dp"
                 android:layout_height="39dp"
                 android:layout_gravity="left"
@@ -94,138 +104,111 @@
                 android:src="@drawable/searchicon" />
         </androidx.cardview.widget.CardView>
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            tools:ignore="MissingConstraints">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
-
+                android:layout_height="wrap_content"
+                android:id="@+id/attributes"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                tools:ignore="MissingConstraints"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    app:cardCornerRadius="4dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="100dp"
                     android:id="@+id/heroIsStrength">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
+                        android:layout_margin="3dp"
                         android:gravity="center">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="2dp"
                             android:src="@drawable/strengthattribute" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:fontFamily="sans-serif"
-                            android:foregroundGravity="center"
-                            android:gravity="center"
-                            android:text="Сила"
-                            android:textColor="@color/DarkBlue"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    app:cardCornerRadius="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    app:cardCornerRadius="100dp"
                     android:id="@+id/heroIsAgility">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:layout_margin="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="2dp"
                             android:src="@drawable/agilityattribute" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:fontFamily="sans-serif"
-                            android:gravity="center"
-                            android:text="Ловкость"
-                            android:textColor="@color/DarkBlue"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    app:cardCornerRadius="4dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    app:cardCornerRadius="100dp"
                     android:id="@+id/heroIsIntelligence">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:layout_margin="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="2dp"
                             android:src="@drawable/intelligenceattribute" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:fontFamily="sans-serif"
-                            android:gravity="center"
-                            android:text="Интеллект"
-                            android:textColor="@color/DarkBlue"
-                            android:textSize="16dp"
-                            android:textStyle="bold" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    app:cardCornerRadius="100dp"
+                    android:id="@+id/heroIsUniversal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_margin="2dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/universalattribute" />
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
-        </HorizontalScrollView>
 
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/heroesScrollView"
             android:layout_width="wrap_content"
             android:layout_height="610dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
+            app:layout_constraintTop_toBottomOf="@+id/attributes">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -235,41 +218,77 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hero_list_strength"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:nestedScrollingEnabled="true"
-                    android:paddingBottom="48dp"
+                    android:paddingBottom="0dp"
                     tools:listitem="@layout/hero_item">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hero_list_agility"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:nestedScrollingEnabled="false"
-                    android:paddingBottom="48dp"
+                    android:paddingBottom="0dp"
                     tools:listitem="@layout/hero_item">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/hero_list_intelligence"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:nestedScrollingEnabled="false"
-                    android:paddingBottom="48dp"
+                    android:paddingBottom="0dp"
+                    tools:listitem="@layout/hero_item">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/hero_list_universal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingBottom="60dp"
+                    tools:listitem="@layout/hero_item">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/hero_list_searched"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingBottom="60dp"
                     tools:listitem="@layout/hero_item">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <ProgressBar
+            android:id="@+id/progressBarHeroes"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:indeterminateDrawable="@drawable/spinner_ring"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -20,7 +20,7 @@ class FireBaseRepository {
         }
     }
 
-    suspend fun getHeroes(): List<Hero>{
+    suspend fun getHeroes(): List<Hero> {
         val heroesList: MutableList<Hero> = mutableListOf()
         val task = FirebaseDatabase.getInstance().getReference("heroes").get()
         task.await()
@@ -32,8 +32,6 @@ class FireBaseRepository {
                 }
             }
         }
-
-
         return  heroesList
     }
 
@@ -66,7 +64,7 @@ class FireBaseRepository {
     }
 
 
-    fun getAbilities() : List<Ability>{
+    fun getAbilities() : List<Ability> {
         val abilitiesList : MutableList<Ability> = mutableListOf()
         val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("abilities")
         reference.get().addOnSuccessListener {

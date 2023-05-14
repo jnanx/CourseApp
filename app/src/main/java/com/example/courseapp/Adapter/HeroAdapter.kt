@@ -17,7 +17,7 @@ class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapte
 
     fun interface OnItemClickListener{
 
-        fun onItemClick(position: Int)
+        fun onItemClick(Id: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener): HeroAdapter{
@@ -27,15 +27,9 @@ class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapte
 
     private var heroList: List<Hero> = emptyList()
 
-    class MyViewHolder(itemView : View, listener: OnItemClickListener) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val heroIcon: ImageView = itemView.findViewById(R.id.heroIconBox)
         val heroName: TextView = itemView.findViewById(R.id.heroNameBox)
-
-        init {
-           itemView.setOnClickListener {
-               listener.onItemClick(adapterPosition)
-           }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -44,7 +38,7 @@ class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapte
             parent, false
         )
 
-        return MyViewHolder(itemView, mListener)
+        return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -53,6 +47,10 @@ class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapte
         currentItem.image?.let { Glide.with(holder.itemView).load(BASE_URL + it).into(holder.heroIcon) }
         holder.heroName.text = currentItem.localized_name
 
+
+        holder.itemView.setOnClickListener {
+            currentItem.id?.let { id -> mListener.onItemClick(id) }
+        }
     }
 
     override fun getItemCount(): Int {

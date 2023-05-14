@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +12,14 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.courseapp.Adapter.PlayerAdapter
-import com.example.courseapp.Retrofit.MatchDataDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import com.example.courseapp.Room.MatchDataDatabase
 import kotlinx.coroutines.launch
 
 
@@ -51,6 +48,13 @@ class SearchFragment : Fragment() {
 
         val radiantRecyclerView = view.findViewById<RecyclerView>(R.id.radiantHeroList)
         val direRecyclerView = view.findViewById<RecyclerView>(R.id.direHeroList)
+
+        val db = Room.databaseBuilder(
+            requireContext(),
+            MatchDataDatabase::class.java, "matches"
+        ).build()
+
+        viewModel.setDb(db)
 
         view.findViewById<Button>(R.id.findByIdButton).setOnClickListener {
 
@@ -91,24 +95,23 @@ class SearchFragment : Fragment() {
 
         lifecycleScope.launch{
             viewModel.matchDataStateFlow.collect{
-
-                Log.d("COLLECT", "$it")
-                launch(){
-                    if (it != null){
-
-                        durationText.text=
+                if (it != null){
+                    it.duration.let { duration ->
+                        durationText.text =
                             "${resources.getString(R.string.duration)}: " +
-                                    if (it.duration / 60 < 10) "0${it.duration / 60}" else "${it.duration / 60}" + ":" + if (it.duration % 60 < 10) "0${it.duration % 60}" else "${it.duration % 60}"
-                        direScoreText.text="${it.dire_score}"
-                        radiantScoreText.text="${it.radiant_score}"
-                        if(!it.radiant_win){
+                                    if (duration / 60 < 10) "0${duration / 60}" else "${duration / 60}" + ":" + if (duration % 60 < 10) "0${duration % 60}" else "${duration % 60}"
+                    }
+                    direScoreText.text = "${it.dire_score}"
+                    radiantScoreText.text = "${it.radiant_score}"
+                    it.radiant_win.let { win ->
+                        if (!win) {
                             direText.setTextColor(Color.parseColor("#4D8B31"))
                             radiantText.setTextColor(Color.parseColor("#8C3131"))
                             radiantWLText.text = resources.getString(R.string.lose)
                             direWLText.text = resources.getString(R.string.win)
                             direScoreText.setTextColor(Color.parseColor("#4D8B31"))
                             radiantScoreText.setTextColor(Color.parseColor("#8C3131"))
-                        } else{
+                        } else {
                             direText.setTextColor(Color.parseColor("#8C3131"))
                             radiantText.setTextColor(Color.parseColor("#4D8B31"))
                             radiantWLText.text = resources.getString(R.string.win)
@@ -116,15 +119,15 @@ class SearchFragment : Fragment() {
                             direScoreText.setTextColor(Color.parseColor("#8C3131"))
                             radiantScoreText.setTextColor(Color.parseColor("#4D8B31"))
                         }
-                        allinfocard.visibility = View.VISIBLE
-                        //txtUser.movementMethod = ScrollingMovementMethod()
                     }
+                    allinfocard.visibility = View.VISIBLE
+                //txtUser.movementMethod = ScrollingMovementMethod()
                 }
+
             }
         }
 
         lifecycleScope.launch {
-
             viewModel.searchModeStateFlow.collect{
                 val str: String = when(it){
 
@@ -137,12 +140,6 @@ class SearchFragment : Fragment() {
             }
         }
 
-            val db = Room.databaseBuilder(
-                requireContext(),
-                MatchDataDatabase::class.java, "matches"
-            ).build()
-
-        viewModel.setDb(db)
         return view
 
     }

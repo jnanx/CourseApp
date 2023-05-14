@@ -6,19 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
 import com.example.courseapp.Retrofit.DotaBaseMatchDataRepository
-import com.example.courseapp.Retrofit.MatchDataDatabase
 import com.example.courseapp.Retrofit.MatchDataRepository
-import com.example.courseapp.Retrofit.RoomDecoratorMatchDataRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
+import com.example.courseapp.Room.MatchDataDatabase
+import com.example.courseapp.Room.RoomDecoratorMatchDataRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SearchFragmentViewModel: ViewModel() {
-
-    private lateinit var db : MatchDataDatabase
 
     private lateinit var repository: MatchDataRepository
 
@@ -40,7 +35,7 @@ class SearchFragmentViewModel: ViewModel() {
 
 
     fun getMatchData(matchId: Long){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _searchModeStateFlow.emit(SearchMode.LOADING)
             try {
                 val matchData = repository.getMatchData(matchId)
@@ -57,7 +52,6 @@ class SearchFragmentViewModel: ViewModel() {
     }
 
     fun setDb(db: MatchDataDatabase) {
-        this.db = db
         repository = RoomDecoratorMatchDataRepository(DotaBaseMatchDataRepository(), db)
     }
 }
