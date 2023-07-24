@@ -1,49 +1,37 @@
-package com.example.courseapp
+package com.example.courseapp.Views.Fragments
 
 import android.annotation.SuppressLint
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.courseapp.Adapter.ItemAdapter
+import com.example.courseapp.VeiwModels.ItemFragmentViewModel
+import com.example.courseapp.R
+import com.example.courseapp.SearchMode
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ItemFragmentMain.newInstance] factory method to
+ * Use the [ItemMainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ItemFragmentMain : Fragment() {
+class ItemMainFragment : Fragment() {
     private val viewModel: ItemFragmentViewModel by activityViewModels()
-
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     private lateinit var backToHome: CardView
@@ -54,6 +42,10 @@ class ItemFragmentMain : Fragment() {
 
     private lateinit var progressItems: ProgressBar
 
+    private lateinit var itemSearchEditText: EditText
+
+    private lateinit var itemListSearched: RecyclerView
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +53,9 @@ class ItemFragmentMain : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_item_main, container, false)
+
+        itemSearchEditText = view.findViewById(R.id.itemSearchText)
+        itemListSearched = view.findViewById(R.id.item_list_searched)
 
         layoutItems = view.findViewById(R.id.layoutItems)
         progressItems = view.findViewById(R.id.progressBarItems)
@@ -73,9 +68,12 @@ class ItemFragmentMain : Fragment() {
         itemList = view.findViewById(R.id.item_list)
 
         val itemListAdapter = ItemAdapter(viewModel.itemList)
-            .setOnItemClickListener{
-                position -> openItemInfoFragment(viewModel.itemList.value[position].id)
+            .setOnItemClickListener{id ->
+                openItemInfoFragment(id)
+
+
             }
+
         itemList.adapter = itemListAdapter
         itemList.layoutManager = GridLayoutManager(context, 4)
         itemList.setHasFixedSize(false)
@@ -98,6 +96,35 @@ class ItemFragmentMain : Fragment() {
                         progressItems.visibility = View.GONE
                     }
                 }
+            }
+        }
+
+        val searchedItemsAdapter = ItemAdapter(viewModel.itemsSearched)
+            .setOnItemClickListener { id ->
+                openItemInfoFragment(id)
+            }
+
+        itemSearchEditText.addTextChangedListener(
+            afterTextChanged = {
+                if (itemSearchEditText.text.toString().isNotEmpty()) {
+                    viewModel.searchItems(itemSearchEditText.text.toString())
+                    itemList.visibility = View.GONE
+                    itemListSearched.visibility = View.VISIBLE
+                } else {
+                    itemList.visibility = View.VISIBLE
+                    itemListSearched.visibility = View.GONE
+                }
+            })
+
+        itemListSearched.adapter = searchedItemsAdapter
+        itemListSearched.layoutManager = GridLayoutManager(context, 4)
+        itemList.setHasFixedSize(false)
+
+
+
+        lifecycleScope.launch() {
+            viewModel.itemsSearched.collect {
+                searchedItemsAdapter.notifyDataSetChanged()
             }
         }
 
@@ -129,10 +156,9 @@ class ItemFragmentMain : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ItemFragmentMain().apply {
+            ItemMainFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
                 }
             }
     }

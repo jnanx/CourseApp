@@ -1,48 +1,34 @@
-package com.example.courseapp
+package com.example.courseapp.Views.Fragments
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
-import androidx.core.view.get
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.courseapp.Adapter.HeroAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import com.example.courseapp.VeiwModels.HeroFragmentViewModel
+import com.example.courseapp.R
+import com.example.courseapp.SearchMode
 import kotlinx.coroutines.launch
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HeroFragmentMain.newInstance] factory method to
+ * Use the [ProMatchMainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HeroFragmentMain : Fragment() {
+class ProMatchMainFragment : Fragment() {
     private val viewModel: HeroFragmentViewModel by activityViewModels()
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -50,12 +36,11 @@ class HeroFragmentMain : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+//            param1 = it.getString(ARG_PARAM1)
+//            param2 = it.getString(ARG_PARAM2)
         }
     }
 
-    private lateinit var backToHome: CardView
 
     private lateinit var heroListStrength: RecyclerView
 
@@ -81,22 +66,16 @@ class HeroFragmentMain : Fragment() {
 
     private lateinit var heroListSearched: RecyclerView
 
-    private lateinit var progressHeroes: ProgressBar
+    private lateinit var progressHeroes: ContentLoadingProgressBar
 
     private lateinit var layoutHeroes: ConstraintLayout
 
 
-    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_hero_main, container, false)
-        backToHome = view.findViewById(R.id.backToHome)
-
-        backToHome.setOnClickListener() {
-            activity?.supportFragmentManager?.popBackStackImmediate()
-        }
+        val view = inflater.inflate(R.layout.fragment_pro_tracker_main, container, false)
 
         viewModel.loadAbilities()
 
@@ -220,21 +199,25 @@ class HeroFragmentMain : Fragment() {
             viewModel.loadHeroesStateFlow.collect {
                 when (it) {
                     SearchMode.NONE -> {
+                        progressHeroes.hide()
                         progressHeroes.visibility = View.GONE
                         layoutHeroes.visibility = View.GONE
                     }
 
                     SearchMode.ERROR -> {
+                        progressHeroes.hide()
                         progressHeroes.visibility = View.GONE
                         layoutHeroes.visibility = View.GONE
                     }
 
                     SearchMode.LOADING -> {
+                        progressHeroes.show()
                         progressHeroes.visibility = View.VISIBLE
                         layoutHeroes.visibility = View.GONE
                     }
 
                     SearchMode.LOADED -> {
+                        progressHeroes.hide()
                         layoutHeroes.visibility = View.VISIBLE
                         progressHeroes.visibility = View.GONE
                     }
@@ -250,7 +233,7 @@ class HeroFragmentMain : Fragment() {
     }
 
     private fun openHeroInfoFragment(heroId: Int?) {
-        val newFragment = heroId?.let { HeroPageFragment.newInstance(it) }
+        val newFragment = heroId?.let { ProMatchHeroesFragment.newInstance(it) }
         if (newFragment != null)
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.mainContainer, newFragment)
@@ -266,17 +249,16 @@ class HeroFragmentMain : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment HeroFragmentMain.
+         * @return A new instance of fragment ProTrackerMain.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            HeroFragmentMain().apply {
+            ProMatchMainFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
                 }
             }
     }
-
 }

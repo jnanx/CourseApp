@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.courseapp.HomeFragment"
+        android:name="com.example.courseapp.Views.Fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.courseapp.SearchFragment"
+        android:name="com.example.courseapp.Views.Fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/heroFragmentMain"
-        android:name="com.example.courseapp.HeroFragmentMain"
+        android:name="com.example.courseapp.Views.Fragments.HeroFragmentMain"
         android:label="fragment_hero_main"
         tools:layout="@layout/fragment_hero_main" >
         <action
@@ -30,12 +30,12 @@
     </fragment>
     <fragment
         android:id="@+id/proTrackerMain"
-        android:name="com.example.courseapp.ProTrackerMain"
+        android:name="com.example.courseapp.Views.Fragments.ProMatchMainFragment"
         android:label="fragment_pro_tracker_main"
         tools:layout="@layout/fragment_pro_tracker_main" />
     <fragment
         android:id="@+id/timerFragmentMain"
-        android:name="com.example.courseapp.TimerFragmentMain"
+        android:name="com.example.courseapp.Views.Fragments.TimerFragmentMain"
         android:label="fragment_timer_main"
         tools:layout="@layout/fragment_timer_main" />
 </navigation>

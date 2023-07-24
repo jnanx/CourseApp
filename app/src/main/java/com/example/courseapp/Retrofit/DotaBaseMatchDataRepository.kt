@@ -5,6 +5,7 @@ import com.example.courseapp.Models.Hero
 import com.example.courseapp.Models.Item
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
+import com.example.courseapp.Models.ProMatchData
 import com.example.courseapp.Repository.FireBaseRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,7 +18,7 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
     private val client = OkHttpClient.Builder().addInterceptor(run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            level = HttpLoggingInterceptor.Level.BODY
         }
     }).build()
 
@@ -31,18 +32,12 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
 
     private val service = retrofit.create(MatchService::class.java)
 
-    private lateinit var heroes: List<Hero>
-
-    private lateinit var items: List<Item>
-//
-//    private val items = repository.getItems()
-
-    private val abilities = repository.getAbilities()
-
-    private val talents = repository.getTalents()
 
     override suspend fun getMatchData(matchId: Long): MatchData {
-        heroes = repository.getHeroes()
+        val heroes = repository.getHeroes()
+        val items = repository.getItems()
+        val abilities = repository.getAbilities()
+        val talents = repository.getTalents()
         Log.d("repository",heroes.toString())
         return service.getMatch(matchId).run {
             MatchData(
@@ -85,7 +80,30 @@ class DotaBaseMatchDataRepository: MatchDataRepository {
         }
     }
 
-    companion object{
-        const val BASE_URL="https://api.opendota.com/api/"
+    override suspend fun getProMatchData(heroId: Int): List<ProMatchData> {
+        val matches = service.getProMatch(heroId)
+        val hero = repository.getHeroes().firstOrNull { it.id == heroId }
+        return matches.map {
+            ProMatchData(
+                match_id = it.match_id,
+                duration = it.duration,
+                radiant_win = it.radiant_win,
+                start_time = it.start_time,
+                leagueid = it.leagueid,
+                league_name = it.league_name,
+                radiant = it.radiant,
+                player_slot = it.player_slot,
+                account_id = it.account_id,
+                kills = it.kills,
+                deaths = it.deaths,
+                assists = it.assists,
+                heroIconURL = BASE_ICONS_URL + hero!!.icon!!
+            )
+        }
+    }
+
+    companion object {
+        const val BASE_URL = "https://api.opendota.com/api/"
+        const val BASE_ICONS_URL = "https://dotabase.dillerm.io/dota-vpk/"
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="HeroPageFragment"
+    tools:context=".Views.Fragments.HeroPageFragment"
     android:background="@drawable/main_background">
 
 
@@ -111,7 +111,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="370dp"
-                android:layout_height="370dp"
+                android:layout_height="340dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="12dp">
@@ -377,17 +377,6 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/button_background"
-                        android:text="Подробнее"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.94"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

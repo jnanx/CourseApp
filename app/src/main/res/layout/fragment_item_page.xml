@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemPageFragment"
+    tools:context=".Views.Fragments.ItemPageFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/main_background"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
@@ -64,7 +64,193 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="20dp">
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Жинжернаут"
+                android:textColor="@color/DarkBlue"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/itemNameFragment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="370dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/layoutLinear">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/heroPortraitCard"
+                        android:layout_width="78dp"
+                        android:layout_height="58dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        app:cardCornerRadius="4dp"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="78dp"
+                            android:layout_height="58dp"
+                            android:id="@+id/itemIconFragment"
+                            android:src="@drawable/hero_icon_jakiro"
+                            tools:ignore="MissingConstraints"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="3dp" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="0dp"
+                                android:text="Cost:"
+                                android:textColor="@color/Blue"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/itemCostFragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:text="Блинк антимага"
+                                android:textColor="@color/black"
+                                android:textSize="18dp" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/coin"
+                                />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Type:"
+                                android:textColor="@color/Blue"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/itemTypeFragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:text="Блинк антимага"
+                                android:textColor="@color/black"
+                                android:textSize="18dp" />
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_marginTop="7dp"
+                    android:textSize="18dp"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/itemLoreFragment"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="Queen of Pain strikes without warning, destroying gathered foes with **deafening screams**. Should an enemy survive her onslaught, she **slows** their escape with a **throw of her dagger** before finishing them off."
+                    />
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_marginTop="7dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/itemDescriptionFragment"
+                    android:gravity="center"
+                    android:layout_marginBottom="7dp"
+                    android:text="Queen of Pain strikes without warning, destroying gathered foes with **deafening screams**. Should an enemy survive her onslaught, she **slows** their escape with a **throw of her dagger** before finishing them off."
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recipeRecycler"
+                    android:layout_gravity="center"
+                    tools:listitem="@layout/item_recipe"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </FrameLayout>

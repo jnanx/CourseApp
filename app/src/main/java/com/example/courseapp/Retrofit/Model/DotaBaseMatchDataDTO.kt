@@ -1,5 +1,6 @@
 package com.example.courseapp.Retrofit.Model
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

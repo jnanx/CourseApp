@@ -1,37 +1,16 @@
-package com.example.courseapp
+package com.example.courseapp.Views.Fragments
 
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Chronometer
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.courseapp.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TimerFragmentMain.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TimerFragmentMain : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     private lateinit var roshanMinTimer: Chronometer
     private lateinit var roshanMaxTimer: Chronometer
@@ -58,12 +37,8 @@ class TimerFragmentMain : Fragment() {
         var minTimeWhenStopped: Long = MIN_ROSHAN_TIME
         var maxTimeWhenStopped: Long = MAX_ROSHAN_TIME
 
-        var isPaused = true
-
-//        roshanMinTimer.base = SystemClock.elapsedRealtime() + 480000
-//        roshanMaxTimer.base = SystemClock.elapsedRealtime() + 660000
-
-
+        var isPausedRoshan = true
+        var isPausedAegis = true
 
         roshanMinTimer.setOnChronometerTickListener {
             if (it.base <= SystemClock.elapsedRealtime())
@@ -79,19 +54,19 @@ class TimerFragmentMain : Fragment() {
 
 
         startRoshanBtn.setOnClickListener(){
-            if (isPaused) {
-                isPaused = false
+            if (isPausedRoshan) {
+                isPausedRoshan = false
                 restartRoshan.visibility = View.VISIBLE
-                startRoshanBtn.text = "Пауза"
+                startRoshanBtn.text = getString(R.string.pauseText)
                 roshanMinTimer.base = SystemClock.elapsedRealtime() + minTimeWhenStopped
                 roshanMaxTimer.base = SystemClock.elapsedRealtime() + maxTimeWhenStopped
                 roshanMinTimer.start()
                 roshanMaxTimer.start()
             }
             else {
-                isPaused = true
+                isPausedRoshan = true
                 restartRoshan.visibility = View.VISIBLE
-                startRoshanBtn.text = "Пуск"
+                startRoshanBtn.text = getString(R.string.playText)
                 minTimeWhenStopped = roshanMinTimer.base - SystemClock.elapsedRealtime()
                 maxTimeWhenStopped = roshanMaxTimer.base - SystemClock.elapsedRealtime()
                 roshanMinTimer.stop()
@@ -101,8 +76,8 @@ class TimerFragmentMain : Fragment() {
 
 
         restartRoshan.setOnClickListener() {
-            isPaused = true
-            startRoshanBtn.text = "Пуск"
+            isPausedRoshan = true
+            startRoshanBtn.text = getString(R.string.playText)
             restartRoshan.visibility = View.INVISIBLE
             roshanMinTimer.base = SystemClock.elapsedRealtime() + MIN_ROSHAN_TIME
             roshanMaxTimer.base = SystemClock.elapsedRealtime() + MAX_ROSHAN_TIME
@@ -128,24 +103,24 @@ class TimerFragmentMain : Fragment() {
         }
 
         startAegisBtn.setOnClickListener(){
-            if(isPaused){
-                isPaused = false
+            if(isPausedAegis){
+                isPausedAegis = false
                 restartAegis.visibility = View.VISIBLE
-                startAegisBtn.text = "Пауза"
+                startAegisBtn.text = getString(R.string.pauseText)
                 aegisTimer.base = SystemClock.elapsedRealtime() + timeWhenStoppedAegis
                 aegisTimer.start()
             }else{
-                isPaused = true
+                isPausedAegis = true
                 restartAegis.visibility = View.VISIBLE
-                startAegisBtn.text = "Пуск"
+                startAegisBtn.text = getString(R.string.playText)
                 timeWhenStoppedAegis = aegisTimer.base - SystemClock.elapsedRealtime()
                 aegisTimer.stop()
             }
         }
 
         restartAegis.setOnClickListener(){
-            isPaused = true
-            startAegisBtn.text = "Пуск"
+            isPausedAegis = true
+            startAegisBtn.text = getString(R.string.playText)
             restartAegis.visibility = View.INVISIBLE
             aegisTimer.base = SystemClock.elapsedRealtime() + AEGIS_TIME
             timeWhenStoppedAegis = AEGIS_TIME
@@ -164,22 +139,5 @@ class TimerFragmentMain : Fragment() {
         const val MAX_ROSHAN_TIME: Long = 11 * MINUTE
 
         const val AEGIS_TIME: Long = 5 * MINUTE
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TimerFragmentMain.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TimerFragmentMain().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

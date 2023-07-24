@@ -1,4 +1,4 @@
-package com.example.courseapp
+package com.example.courseapp.Views.Fragments
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -19,7 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.courseapp.Adapter.PlayerAdapter
+import com.example.courseapp.R
 import com.example.courseapp.Room.MatchDataDatabase
+import com.example.courseapp.VeiwModels.SearchFragmentViewModel
+import com.example.courseapp.SearchMode
 import kotlinx.coroutines.launch
 
 
@@ -96,14 +99,14 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch{
             viewModel.matchDataStateFlow.collect{
                 if (it != null){
-                    it.duration.let { duration ->
+                    it.duration?.let { duration ->
                         durationText.text =
                             "${resources.getString(R.string.duration)}: " +
                                     if (duration / 60 < 10) "0${duration / 60}" else "${duration / 60}" + ":" + if (duration % 60 < 10) "0${duration % 60}" else "${duration % 60}"
                     }
                     direScoreText.text = "${it.dire_score}"
                     radiantScoreText.text = "${it.radiant_score}"
-                    it.radiant_win.let { win ->
+                    it.radiant_win?.let { win ->
                         if (!win) {
                             direText.setTextColor(Color.parseColor("#4D8B31"))
                             radiantText.setTextColor(Color.parseColor("#8C3131"))

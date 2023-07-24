@@ -27,7 +27,6 @@ data class DotaBasePlayerDTO(
     var leaver_status: Int?,
     var level: Int?,
     var obs_placed: Int?,
-    //var purchase: { },
     var purchase_log: List<DotaBasePurchaseDTO>,
     var sen_placed: Int?,
     var tower_damage: Int?,

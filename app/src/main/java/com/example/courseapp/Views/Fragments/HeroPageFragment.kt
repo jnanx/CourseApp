@@ -1,30 +1,21 @@
-package com.example.courseapp
+package com.example.courseapp.Views.Fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.courseapp.Adapter.AbilityAdapter
-import com.example.courseapp.Adapter.HeroAdapter
-import com.example.courseapp.Adapter.PlayerAdapter
-import com.example.courseapp.Models.Ability
+import com.example.courseapp.VeiwModels.HeroFragmentViewModel
 import com.example.courseapp.Models.Hero
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val HERO_ID_PARAM = "heroId"
+import com.example.courseapp.R
 
 /**
  * A simple [Fragment] subclass.
@@ -101,7 +92,7 @@ class HeroPageFragment private constructor(): Fragment() {
         }
 
         heroName.text= hero?.localized_name
-        hero?.icon?.let {Glide.with(heroIcon).load(BASE_URL+it).into(heroIcon)  }
+        hero?.icon?.let { Glide.with(heroIcon).load(BASE_URL+it).into(heroIcon)  }
         hero?.image.let { Glide.with(heroPortrait).load(BASE_URL+it).into(heroPortrait) }
 
         heroBaseStr.text = hero?.attr_strength_base.toString()
@@ -117,17 +108,19 @@ class HeroPageFragment private constructor(): Fragment() {
         heroBio.text = hero?.bio?.replace("**", "")
 
         when(hero?.attr_primary){
-            "strength"->view.findViewById<ImageView>(R.id.isStrenght).visibility=View.VISIBLE
-            "agility"->view.findViewById<ImageView>(R.id.isAgility).visibility=View.VISIBLE
-            "intelligence"->view.findViewById<ImageView>(R.id.isIntelligence).visibility=View.VISIBLE
+            "strength"->view.findViewById<ImageView>(R.id.isStrenght).visibility= View.VISIBLE
+            "agility"->view.findViewById<ImageView>(R.id.isAgility).visibility= View.VISIBLE
+            "intelligence"->view.findViewById<ImageView>(R.id.isIntelligence).visibility=
+                View.VISIBLE
         }
 
         abilityRecyclerView.adapter = AbilityAdapter(viewModelHeroPage.getHeroAbilities(heroId!!))
         abilityRecyclerView.layoutManager = LinearLayoutManager(view.context)
         return view
     }
-//приложение вылетает когда захожу сюда в этот фрагмент с героем
+
     companion object {
+        private const val HERO_ID_PARAM = "heroId"
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

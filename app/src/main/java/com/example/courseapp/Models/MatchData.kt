@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 data class MatchData (
-    val match_id: Long,
-    val duration: Int,
-    val radiant_win: Boolean,
-    val radiant_score: Int,
-    val dire_score: Int,
-    val players: List<Player>
+    val match_id: Long? = null,
+    val duration: Int? = null,
+    val radiant_win: Boolean? = null,
+    val radiant_score: Int? = null,
+    val dire_score: Int? = null,
+    val players: List<Player>? = null
     )

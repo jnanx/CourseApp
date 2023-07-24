@@ -16,4 +16,6 @@
     <string name="enterID">Enter game ID</string>
     <string name="heroes">Heroes</string>
     <string name="items">Items</string>
+    <string name="pauseText">pause</string>
+    <string name="playText">play</string>
 </resources>

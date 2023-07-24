@@ -16,7 +16,7 @@ class ItemAdapter(private val list: StateFlow<List<Item>>): RecyclerView.Adapter
     private lateinit var mListener: OnItemClickListener
 
     fun interface OnItemClickListener{
-        fun onItemClick(position: Int)
+        fun onItemClick(Id: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener):ItemAdapter{
@@ -29,11 +29,6 @@ class ItemAdapter(private val list: StateFlow<List<Item>>): RecyclerView.Adapter
     class ItemViewHolder(itemView: View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView){
         val itemIcon: ImageView = itemView.findViewById(R.id.itemImage)
 
-        init {
-            itemView.setOnClickListener{
-                listener.onItemClick(adapterPosition)
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):ItemViewHolder{
@@ -47,8 +42,10 @@ class ItemAdapter(private val list: StateFlow<List<Item>>): RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int){
         val currentItem = itemList[position]
-        //holder.itemIcon.setImageResource(R.color.Blue)
         currentItem.icon?.let { Glide.with(holder.itemView).load(BASE_URL + it).into(holder.itemIcon) }
+        holder.itemIcon.setOnClickListener {
+            currentItem.id?.let { id -> mListener.onItemClick(id) }
+        }
     }
 
     override fun getItemCount():Int{

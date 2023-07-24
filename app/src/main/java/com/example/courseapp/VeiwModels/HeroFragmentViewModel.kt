@@ -1,12 +1,14 @@
-package com.example.courseapp
+package com.example.courseapp.VeiwModels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseapp.Models.Ability
 import com.example.courseapp.Models.Hero
+import com.example.courseapp.Models.ProMatchData
 import com.example.courseapp.Repository.FireBaseRepository
-import kotlinx.coroutines.Dispatchers
+import com.example.courseapp.Retrofit.DotaBaseMatchDataRepository
+import com.example.courseapp.SearchMode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -36,6 +38,14 @@ class HeroFragmentViewModel: ViewModel() {
     private val _loadHeroesStateFlow = MutableStateFlow(SearchMode.NONE)
     val loadHeroesStateFlow = _loadHeroesStateFlow.asStateFlow()
 
+    private val _proMatches = MutableStateFlow<List<ProMatchData>>(emptyList())
+    val proMatches = _proMatches.asStateFlow()
+
+    /*private val _loadProMatchesSF = MutableStateFlow(SearchMode.NONE)
+    val loadProMatchesSF = _loadProMatchesSF.asStateFlow()*/
+
+    private val repository = DotaBaseMatchDataRepository()
+
 
 
     fun loadHeroes() {
@@ -51,7 +61,6 @@ class HeroFragmentViewModel: ViewModel() {
             } catch (e:Exception){
                 Log.d("ViewModelGetItemError", e.toString())
                 _loadHeroesStateFlow.emit(SearchMode.ERROR)
-
             }
         }
     }
@@ -64,11 +73,9 @@ class HeroFragmentViewModel: ViewModel() {
     }
 
     fun getHeroAbilities(heroId: Int): List<Ability> {
-        return abilities.filter { it.hero_id == heroId }.sortedBy { it.slot } //как написать not contain чтобы не включать те которые not_learnable
+        return abilities.filter { it.hero_id == heroId }.sortedBy { it.slot }
     }
 
-//    .filterNot { it.behavior!!.contains("not_learnable") }
-    //.filterNot { it.behavior!!.contains("not_learnable") && it.behavior!!.contains("hidden") && it.scepter_grants == false && it.shard_grants == false}
     fun searchHeroes(name: String){
         viewModelScope.launch {
             _heroesSearched.emit(heroes.filter { it.localized_name!!.contains(name, true) })
@@ -79,4 +86,19 @@ class HeroFragmentViewModel: ViewModel() {
         return heroes
             .find { h-> h.id == id }
     }
+
+    fun loadProMatches(heroId: Int) {
+        viewModelScope.launch {
+            _loadHeroesStateFlow.emit(SearchMode.LOADING)
+            try {
+                val proMatches = repository.getProMatchData(heroId)
+                _proMatches.emit(proMatches)
+                _loadHeroesStateFlow.emit(SearchMode.LOADED)
+            } catch (e:Exception){
+                Log.d("ViewModelGetItemError", e.toString())
+                _loadHeroesStateFlow.emit(SearchMode.ERROR)
+            }
+        }
+    }
+
 }

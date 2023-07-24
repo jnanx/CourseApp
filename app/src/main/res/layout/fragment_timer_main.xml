@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TimerFragmentMain"
+    tools:context=".Views.Fragments.TimerFragmentMain"
     android:background="@drawable/main_background">
 
     <ScrollView
@@ -85,25 +85,25 @@
                             android:layout_height="35dp"
                             android:visibility="invisible"
                             android:id="@+id/restartRoshan"
-
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="Мяу"
                             android:gravity="center"
                             android:layout_gravity="center"
                             android:layout_marginStart="60dp"
-                            android:background="@drawable/button_background"/>
+                            android:background="@drawable/baseline_restart_alt_24" />
 
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/pauseRoshan"
+                                android:textStyle="bold"
                                 android:layout_width="80dp"
                                 android:layout_height="35dp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="8dp"
-                                android:text="Пуск"
+                                android:textColor="@color/white"
+                                android:text="@string/playText"
                                 android:background="@drawable/button_background"/>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -166,7 +166,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_marginStart="10dp"
-                            android:src="@drawable/roshan_icon"/>
+                            android:src="@drawable/aegis_icon"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -188,22 +188,25 @@
                             android:id="@+id/restartAegis"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="Мяу"
                             android:gravity="center"
                             android:layout_gravity="center"
                             android:layout_marginStart="85dp"
-                            android:background="@drawable/button_background"/>
+                            android:background="@drawable/baseline_restart_alt_24">
+
+                        </androidx.appcompat.widget.AppCompatButton>
 
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/startAegis"
                             android:layout_width="80dp"
+                            android:textStyle="bold"
                             android:layout_height="35dp"
+                            android:textColor="@color/white"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"
-                            android:text="Пуск"
+                            android:text="@string/playText"
                             android:background="@drawable/button_background"/>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

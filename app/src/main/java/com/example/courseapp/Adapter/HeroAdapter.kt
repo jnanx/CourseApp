@@ -15,7 +15,7 @@ class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapte
 
     private lateinit var mListener: OnItemClickListener
 
-    fun interface OnItemClickListener{
+    fun interface OnItemClickListener {
 
         fun onItemClick(Id: Int)
     }
@@ -52,6 +52,7 @@ class HeroAdapter(private val list: StateFlow<List<Hero>>) : RecyclerView.Adapte
             currentItem.id?.let { id -> mListener.onItemClick(id) }
         }
     }
+
 
     override fun getItemCount(): Int {
         heroList = list.value

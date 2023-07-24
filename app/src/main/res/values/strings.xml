@@ -16,4 +16,6 @@
     <string name="enterID">Введите ID игры</string>
     <string name="heroes">Герои</string>
     <string name="items">Предметы</string>
+    <string name="pauseText">пауза</string>
+    <string name="playText">пуск</string>
 </resources>

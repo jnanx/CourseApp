@@ -4,6 +4,7 @@ package com.example.courseapp.Room
 import androidx.room.*
 import com.example.courseapp.Models.MatchData
 import com.example.courseapp.Models.Player
+import com.example.courseapp.Models.ProMatchData
 import com.example.courseapp.Retrofit.MatchDataRepository
 import com.example.courseapp.Room.PlayerListConverter
 
@@ -67,11 +68,11 @@ class RoomDecoratorMatchDataRepository(
             matchDao.insertMatch(
                 matchDataFromDecorated.let {
                     MatchDataEntity(
-                        duration = it.duration,
-                        radiant_win = it.radiant_win,
-                        radiant_score = it.radiant_score,
-                        dire_score = it.dire_score,
-                        players = it.players,
+                        duration = it.duration!!,
+                        radiant_win = it.radiant_win!!,
+                        radiant_score = it.radiant_score!!,
+                        dire_score = it.dire_score!!,
+                        players = it.players!!,
                         idQuery = id
                     )
                 }
@@ -89,5 +90,9 @@ class RoomDecoratorMatchDataRepository(
             )
         }
 
+    }
+
+    override suspend fun getProMatchData(heroId: Int): List<ProMatchData> {
+        TODO("Not yet implemented")
     }
 }
