@@ -12,29 +12,32 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/layoutLinear">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Dota"
-                        android:textColor="@color/black"
-                        android:textSize="30dp"
-                        android:textStyle="bold" />
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Dota"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Guides"
-                        android:textColor="@color/black"
-                        android:textSize="30dp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Guides"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
